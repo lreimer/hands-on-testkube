@@ -20,9 +20,18 @@ kubectl apply -f src/k8s/k6-influxdb-grafana.yaml
 kubectl testkube tests create --file src/k6/k6-test-scenarios.js --type "k6/script" --name k6-test-script
 kubectl testkube tests run --watch k6-test-script
 
+# create Nginx service and k6 load test
+kubectl apply -f src/k8s/k6-nginx-service.yaml
+kubectl testkube tests create --file src/k6/k6-test-nginx.js --type "k6/script" --name k6-test-nginx
+kubectl testkube tests run --param TARGET_HOSTNAME=nginx-service.default.svc.cluster.local --watch k6-test-nginx
+kubectl testkube tests run --param K6_OUT=influxdb=http://influxdb-service:8086/k6 --param TARGET_HOSTNAME=nginx-service.default.svc.cluster.local --watch k6-test-nginx
+
 # create a generic k6 test for this repository
-kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --git-path src/k6/ --type "k6/script" --name --name k6-test-script-git
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --git-path src/k6/ --type "k6/script" --name k6-test-script-git
 kubectl testkube tests run --args src/k6/k6-test-scenarios.js --watch k6-test-script-git
+
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --git-path src/k6/ --type "k6/script" --name k6-test-nginx
+kubectl testkube tests run --args src/k6/k6-test-nginx.js  --watch k6-test-nginx
 ```
 
 ## TestKube Gradle Example
