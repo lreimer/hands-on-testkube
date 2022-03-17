@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hands.on.testkube</groupId>
-    <artifactId>hello-maven</artifactId>
+    <artifactId>testkube-maven</artifactId>
     <version>1.0</version>
 
     <properties>
