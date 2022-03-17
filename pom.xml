@@ -36,12 +36,26 @@
 
     <build>
         <plugins>
-
             <!-- Need at least 2.22.0 to support JUnit 5 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+            </plugin>
+
+            <!-- used for inrtegration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <executions>
+                <execution>
+                    <goals>
+                    <goal>integration-test</goal>
+                    <goal>verify</goal>
+                    </goals>
+                </execution>
+                </executions>
             </plugin>
 
             <plugin>
