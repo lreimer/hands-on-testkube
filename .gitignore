@@ -1,1 +1,7 @@
 .dccache
+.vscode/
+.gradle/
+
+target/
+build/
+bin/
