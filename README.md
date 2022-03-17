@@ -11,7 +11,19 @@ This project contains test sources for various languages, frameworks and tools:
 
 ## TestKube k6 Example
 
+```bash
+# register the Gradle executor with TestKube
+kubectl apply -f src/k8s/k6-executor.yaml
+kubectl apply -f src/k8s/k6-influxdb-grafana.yaml
 
+# create simple k6 file based script
+kubectl testkube tests create --file src/k6/k6-test-scenarios.js --type "k6/script" --name k6-test-script
+kubectl testkube tests run --watch k6-test-script
+
+# create a generic k6 test for this repository
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --git-path src/k6/ --type "k6/script" --name --name k6-test-script-git
+kubectl testkube tests run --args src/k6/k6-test-scenarios.js --watch k6-test-script-git
+```
 
 ## TestKube Gradle Example
 
@@ -21,10 +33,15 @@ kubectl apply -f src/k8s/gradle-executor.yaml
 
 # create a Gradle test for this repository
 kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/test" --name gradle-test
+kubectl testkube tests run --watch gradle-test
 
-# and run the tests
-kubectl testkube tests run --args test --watch gradle-test
-kubectl testkube tests run --args integrationTest --watch gradle-test
+# create a Gradle integrationTest for this repository
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/integrationTest" --name gradle-integrationTest
+kubectl testkube tests run --watch gradle-integrationTest
+
+# or create a Gradle project and pass test task via args
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/project" --name gradle-project
+kubectl testkube tests run --args integrationTest --watch gradle-project
 ```
 
 ## TestKube Maven Example
@@ -35,10 +52,15 @@ kubectl apply -f src/k8s/maven-executor.yaml
 
 # create a Maven test for this repository
 kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "maven/test" --name maven-test
+kubectl testkube tests run --watch maven-test
 
-# and run the tests
-kubectl testkube tests run --args test --watch maven-test
-kubectl testkube tests run --args integration-test --watch maven-test
+# create a Maven integration test for this repository
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "maven/integration-test" --name maven-integration-test
+kubectl testkube tests run --watch maven-integration-test
+
+# or create a Maven project and pass test goal via args
+kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "maven/project" --name maven-project
+kubectl testkube tests run --args integration-test --watch maven-project
 ```
 
 ## Maintainer
