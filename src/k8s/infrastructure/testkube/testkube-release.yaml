@@ -1,0 +1,17 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: testkube
+  namespace: flux-system
+spec:
+  releaseName: testkube
+  targetNamespace: testkube
+  chart:
+    spec:
+      chart: testkube
+      sourceRef:
+        kind: HelmRepository
+        name: testkube
+        namespace: flux-system
+      version: "1.0.1"
+  interval: 5m0s

@@ -6,22 +6,44 @@ This project contains test sources for various languages, frameworks and tools:
 - Load tests to be run with k6
 - JUnit 5 based unit tests to be run with either Maven or Gradle
 - Integration tests using REST-assured to be run with either Maven or Gradle
-- Karate acceptance tests to be run with the Karate executor (TODO)
 - Security test using the ZAP attack proxy (TODO)
+- Karate acceptance tests to be run with the Karate executor (TODO)
 
-## TestKube k6 Example
+## Bootstrapping
 
 ```bash
-# register the Gradle executor with TestKube
-kubectl apply -f src/k8s/k6-executor.yaml
-kubectl apply -f src/k8s/k6-influxdb-grafana.yaml
+# define required ENV variables for the next steps to work
+$ export GITHUB_USER=lreimer
+$ export GITHUB_TOKEN=<your-token>
 
+# setup a GKE cluster with Flux2
+$ make create-gke-cluster
+$ make bootstrap-gke-flux2
+
+# modify Flux kustomization and add
+# - cluster-sync.yaml
+# - notification-receiver.yaml
+# - receiver-service.yaml
+# - webhook-token.yaml
+# - image-update-automation.yaml
+
+# you also need to create the webhook for the Git Repository
+# Payload URL: http://<LoadBalancerAddress>/<ReceiverURL>
+# Secret: the webhook-token value
+$ kubectl -n flux-system get svc/receiver
+$ kubectl -n flux-system get receiver/webapp
+
+$ make delete-gke-cluster
+```
+
+## Testkube k6 Example
+
+```bash
 # create simple k6 file based script
 kubectl testkube tests create --file src/k6/k6-test-scenarios.js --type "k6/script" --name k6-test-script
 kubectl testkube tests run --watch k6-test-script
 
 # create Nginx service and k6 load test
-kubectl apply -f src/k8s/k6-nginx-service.yaml
 kubectl testkube tests create --file src/k6/k6-test-nginx.js --type "k6/script" --name k6-test-nginx
 kubectl testkube tests run --param TARGET_HOSTNAME=nginx-service.default.svc.cluster.local --watch k6-test-nginx
 kubectl testkube tests run --param K6_OUT=influxdb=http://influxdb-service:8086/k6 --param TARGET_HOSTNAME=nginx-service.default.svc.cluster.local --watch k6-test-nginx
@@ -34,12 +56,9 @@ kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-test
 kubectl testkube tests run --args src/k6/k6-test-nginx.js  --watch k6-test-nginx
 ```
 
-## TestKube Gradle Example
+## Testkube Gradle Example
 
 ```bash
-# register the Gradle executor with TestKube
-kubectl apply -f src/k8s/gradle-executor.yaml
-
 # create a Gradle test for this repository
 kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/test" --name gradle-test
 kubectl testkube tests run --watch gradle-test
@@ -53,12 +72,9 @@ kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-test
 kubectl testkube tests run --args integrationTest --watch gradle-project
 ```
 
-## TestKube Maven Example
+## Testkube Maven Example
 
 ```bash
-# register the Maven executor with TestKube
-kubectl apply -f src/k8s/maven-executor.yaml
-
 # create a Maven test for this repository
 kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "maven/test" --name maven-test
 kubectl testkube tests run --watch maven-test
@@ -70,6 +86,18 @@ kubectl testkube tests run --watch maven-integration-test
 # or create a Maven project and pass test goal via args
 kubectl testkube tests create --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "maven/project" --name maven-project
 kubectl testkube tests run --args integration-test --watch maven-project
+```
+
+## Testkube ZAP Example
+
+```bash
+# run a ZAP OpenAPI scan against microservice
+kubectl testkube create test --filename src/zap/zap-api.yaml --type "zap/api" --name zap-api-test
+kubectl testkube run run --watch zap-api-test
+
+# run a ZAP Baseline scan against microservice
+kubectl testkube create test --filename examples/zap-baseline.yaml --type "zap/baseline" --name zap-baseline-test
+kubectl testkube run test --watch zap-baseline-test
 ```
 
 ## Maintainer
