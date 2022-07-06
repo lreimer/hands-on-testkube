@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: webhook-token
+  namespace: flux-system
+type: Opaque
+data:
+  token: ODQwMjFkYzY1NWQ0OTdkOGU4Y2E3YzZlYmViMDRhNjQ2NGZlY2ExYg==
