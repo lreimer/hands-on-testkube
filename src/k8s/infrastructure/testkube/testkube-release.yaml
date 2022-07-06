@@ -13,5 +13,5 @@ spec:
         kind: HelmRepository
         name: testkube
         namespace: flux-system
-      version: "1.0.1"
+      version: "1.3.3"
   interval: 5m0s
