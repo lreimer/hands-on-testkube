@@ -11,6 +11,12 @@ This project contains test sources for various languages, frameworks and tools:
 
 ## Bootstrapping
 
+For a simple local setup use the following instructions:
+```
+$ kubectl testkube install
+```
+
+For a GKE based setup using Flux as GitOps tool, use the following instructions:
 ```bash
 # define required ENV variables for the next steps to work
 $ export GITHUB_USER=lreimer
@@ -34,6 +40,13 @@ $ kubectl -n flux-system get svc/receiver
 $ kubectl -n flux-system get receiver/webapp
 
 $ make delete-gke-cluster
+```
+
+## Testkube Postman Example
+
+```bash
+$ kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-test
+$ kubectl testkube run test postman-test
 ```
 
 ## Testkube k6 Example
