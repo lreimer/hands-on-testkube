@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - testkube-source.yaml
-  - testkube-release.yaml
+  # - testkube-release.yaml
   # - k6-executor.yaml
   # - gradle-executor.yaml
   # - maven-executor.yaml
