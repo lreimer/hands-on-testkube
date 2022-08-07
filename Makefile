@@ -7,12 +7,12 @@ create-gke-cluster:
 	@kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$$(gcloud config get-value core/account)
 	@kubectl cluster-info
 
-bootstrap-gke-flux2:
+bootstrap-flux2:
 	@flux bootstrap github \
 		--owner=$(GITHUB_USER) \
   		--repository=hands-on-testkube \
   		--branch=main \
-  		--path=./src/k8s/clusters/testkube-cluster \
+  		--path=./k8s/clusters/testkube-cluster \
 		--components-extra=image-reflector-controller,image-automation-controller \
 		--read-write-key \
   		--personal
