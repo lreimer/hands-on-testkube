@@ -49,7 +49,7 @@ $ kubectl testkube create test --file src/postman/postman_collection.json --type
 $ kubectl testkube run test postman-test
 ```
 
-## Testkube k6 Example
+## Testkube K6 Example
 
 ```bash
 # create simple k6 file based script
