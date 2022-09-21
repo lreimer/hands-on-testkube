@@ -34,11 +34,15 @@ $ make bootstrap-gke-flux2
 # - webhook-token.yaml
 # - image-update-automation.yaml
 
+# if the TestKube Helm release fails to reconciliate
+flux suspend hr testkube
+flux resume hr testkube
+
 # you also need to create the webhook for the Git Repository
 # Payload URL: http://<LoadBalancerAddress>/<ReceiverURL>
 # Secret: the webhook-token value
-$ kubectl -n flux-system get svc/receiver
-$ kubectl -n flux-system get receiver/webapp
+# $ kubectl -n flux-system get svc/receiver
+# $ kubectl -n flux-system get receiver/webapp
 
 $ make delete-gke-cluster
 ```
