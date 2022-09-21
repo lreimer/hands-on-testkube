@@ -27,7 +27,8 @@ $ make create-gke-cluster
 $ make bootstrap-gke-flux2
 
 # modify Flux kustomization and add
-# - cluster-sync.yaml
+# - infrastructure-sync.yaml
+# - applications-sync.yaml
 # - notification-receiver.yaml
 # - receiver-service.yaml
 # - webhook-token.yaml
