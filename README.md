@@ -47,6 +47,13 @@ flux resume hr testkube
 $ make delete-gke-cluster
 ```
 
+## TestKube UI and CLI
+
+```bash
+kubectl testkube --help 
+kubectl testkube dashboard
+```
+
 ## Testkube Postman Example
 
 ```bash
