@@ -57,8 +57,8 @@ kubectl testkube dashboard
 ## Testkube Postman Example
 
 ```bash
-$ kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-test
-$ kubectl testkube run test postman-test
+kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-test
+kubectl testkube run test postman-test
 ```
 
 ## Testkube K6 Example
@@ -124,6 +124,15 @@ kubectl testkube run test --watch zap-api-test
 kubectl testkube create test --filename examples/zap-baseline.yaml --type "zap/baseline" --name zap-baseline-test
 kubectl testkube run test --watch zap-baseline-test
 ```
+
+## TestSuite Example
+
+```bash
+kubectl testkube create testsuite --name hands-on-testkube --file src/suite.json
+kubectl get testsuites -n testkube hands-on-testkube  -o yaml
+kubectl testkube run testsuite hands-on-testkube
+```
+
 
 ## Maintainer
 

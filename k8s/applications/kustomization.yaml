@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: default
 resources:
   - k6-demo/k6-nginx.yaml
+  # - testsuite.yaml
