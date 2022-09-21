@@ -1,11 +1,11 @@
 apiVersion: tests.testkube.io/v2
 kind: TestSuite
 metadata:
-  name: hands-on-testkube
+  name: hands-on-testkube-flux2
   namespace: testkube
   generation: 1
 spec:
-  description: Example Testkube test suite
+  description: Example Testkube test suite via Flux2
   executionRequest: {}
   steps:
   - execute:
