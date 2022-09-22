@@ -13,7 +13,7 @@ This project contains test sources for various languages, frameworks and tools:
 
 For a simple local setup use the following instructions:
 ```
-$ kubectl testkube install
+$ kubectl testkube init
 ```
 
 For a GKE based setup using Flux as GitOps tool, use the following instructions:
@@ -118,7 +118,7 @@ kubectl testkube run test --args integration-test --watch maven-project
 ## ZAP Executor Example
 
 ```bash
-# register the executor manually
+# register the executor manually or via GitOps
 kubectl apply -n testkube -f k8s/infrastructure/testkube/zap-executor.yaml
 
 # run a ZAP OpenAPI scan against microservice
@@ -133,9 +133,10 @@ kubectl testkube run test --watch zap-baseline-test
 ## Karate Executor Example
 
 ```bash
+# register the executor manually or via GitOps
 kubectl apply -n testkube -f k8s/infrastructure/testkube/karate-executor.yaml
 
-# run a Karate test agains Chuck Norris REST API
+# create and run a Karate test agains Chuck Norris REST API
 kubectl testkube create test --filename src/karate/chuck-norris.feature --type "karate/feature" --name karate-test
 kubectl testkube run test --watch karate-test
 ```
@@ -147,7 +148,6 @@ kubectl testkube create testsuite --name hands-on-testkube --file src/suite.json
 kubectl get testsuites -n testkube hands-on-testkube  -o yaml
 kubectl testkube run testsuite hands-on-testkube
 ```
-
 
 ## Maintainer
 
