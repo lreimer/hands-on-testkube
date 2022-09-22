@@ -1,0 +1,15 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  generation: 1
+  name: gradle-integration-test-gitops
+  namespace: testkube
+spec:
+  content:
+    repository:
+      branch: main
+      type: git
+      uri: https://github.com/lreimer/hands-on-testkube.git
+    type: git-dir
+  executionRequest: {}
+  type: gradle/integrationTest

@@ -89,8 +89,8 @@ kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testk
 kubectl testkube run test --watch gradle-test
 
 # create a Gradle integrationTest for this repository
-kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/integrationTest" --name gradle-integrationTest
-kubectl testkube run test --watch gradle-integrationTest
+kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/integrationTest" --name gradle-integration-test
+kubectl testkube run test --watch gradle-integration-test
 
 # or create a Gradle project and pass test task via args
 kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main --type "gradle/project" --name gradle-project
