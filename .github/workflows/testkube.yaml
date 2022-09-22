@@ -1,0 +1,56 @@
+name: Run Testkube Tests
+
+on:
+  workflow_dispatch:
+  # push:
+  #  paths:
+  #    - 'src/**'
+  #  branches:
+  #    - main
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}    # Add your cluster name here.
+  GKE_ZONE: ${{ secrets.GKE_ZONE }}   # Add your cluster zone here.
+
+jobs:
+  test:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      # Setup gcloud CLI 
+      - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
+        with:
+          service_account_key: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
+
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@fb08709ba27618c31c09e014e1d8364b02e5042e
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER_NAME }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: ${{ secrets.GKE_SA_KEY }}
+
+      # Run Testkube test on a GKE cluster
+      - name: Run test
+        id: run_test
+        uses: kubeshop/testkube-docker-action@v1
+        with:
+          command: run
+          resource: testsuite
+          parameters: hands-on-testkube

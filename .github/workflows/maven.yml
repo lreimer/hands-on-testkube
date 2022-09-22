@@ -1,9 +1,11 @@
 name: Java CI with Maven
 
 on:
+  workflow_dispatch:    
   push:
-    branches: [ "main" ]
-  pull_request:
+    paths:
+      - 'src/**'
+      - 'pom.xml'
     branches: [ "main" ]
 
 jobs:
