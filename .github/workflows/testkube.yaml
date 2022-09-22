@@ -9,7 +9,6 @@ on:
   #    - main
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER_NAME: ${{ secrets.GKE_CLUSTER_NAME }}    # Add your cluster name here.
   GKE_ZONE: ${{ secrets.GKE_ZONE }}   # Add your cluster zone here.
 
