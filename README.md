@@ -6,8 +6,8 @@ This project contains test sources for various languages, frameworks and tools:
 - Load tests to be run with k6
 - JUnit 5 based unit tests to be run with either Maven or Gradle
 - Integration tests using REST-assured to be run with either Maven or Gradle
-- Security test using the ZAP attack proxy (TODO)
-- Karate acceptance tests to be run with the Karate executor (TODO)
+- Security test using the ZAP attack proxy
+- Karate acceptance tests to be run with the Karate executor
 
 ## Bootstrapping
 
@@ -59,6 +59,8 @@ kubectl testkube dashboard
 ```bash
 kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-test
 kubectl testkube run test postman-test
+
+kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-scheduled-test --schedule="*/5 * * * *"
 ```
 
 ## K6 Executor Example
