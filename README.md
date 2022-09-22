@@ -35,8 +35,8 @@ $ make bootstrap-gke-flux2
 # - image-update-automation.yaml
 
 # if the TestKube Helm release fails to reconciliate
-flux suspend hr testkube
-flux resume hr testkube
+$ flux suspend hr testkube
+$ flux resume hr testkube
 
 # you also need to create the webhook for the Git Repository
 # Payload URL: http://<LoadBalancerAddress>/<ReceiverURL>
