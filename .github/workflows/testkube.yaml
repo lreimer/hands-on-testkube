@@ -14,7 +14,7 @@ env:
 
 jobs:
   test:
-    name: Deploy
+    name: Run Testkube
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
