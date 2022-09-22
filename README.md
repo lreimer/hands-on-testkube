@@ -54,14 +54,14 @@ kubectl testkube --help
 kubectl testkube dashboard
 ```
 
-## Testkube Postman Example
+## Postman Executor Example
 
 ```bash
 kubectl testkube create test --file src/postman/postman_collection.json --type postman/collection --name postman-test
 kubectl testkube run test postman-test
 ```
 
-## Testkube K6 Example
+## K6 Executor Example
 
 ```bash
 # create simple k6 file based script
@@ -81,7 +81,7 @@ kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testk
 kubectl testkube run test --args src/k6/k6-test-nginx.js --watch k6-test-nginx
 ```
 
-## Testkube Gradle Example
+## Gradle Executor Example
 
 ```bash
 # create a Gradle test for this repository
@@ -97,7 +97,7 @@ kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testk
 kubectl testkube run test --args integrationTest --watch gradle-project
 ```
 
-## Testkube Maven Example
+## Maven Executor Example
 
 ```bash
 # create a Maven test for this repository
@@ -113,9 +113,12 @@ kubectl testkube create test --git-uri https://github.com/lreimer/hands-on-testk
 kubectl testkube run test --args integration-test --watch maven-project
 ```
 
-## Testkube ZAP Example
+## ZAP Executor Example
 
 ```bash
+# register the executor manually
+kubectl apply -n testkube -f k8s/infrastructure/testkube/zap-executor.yaml
+
 # run a ZAP OpenAPI scan against microservice
 kubectl testkube create test --filename src/zap/zap-api.yaml --type "zap/api" --name zap-api-test
 kubectl testkube run test --watch zap-api-test
@@ -123,6 +126,16 @@ kubectl testkube run test --watch zap-api-test
 # run a ZAP Baseline scan against microservice
 kubectl testkube create test --filename examples/zap-baseline.yaml --type "zap/baseline" --name zap-baseline-test
 kubectl testkube run test --watch zap-baseline-test
+```
+
+## Karate Executor Example
+
+```bash
+kubectl apply -n testkube -f k8s/infrastructure/testkube/karate-executor.yaml
+
+# run a Karate test agains Chuck Norris REST API
+kubectl testkube create test --filename src/karate/chuck-norris.feature --type "karate/feature" --name karate-test
+kubectl testkube run test --watch karate-test
 ```
 
 ## TestSuite Example
