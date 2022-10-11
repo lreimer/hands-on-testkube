@@ -4,6 +4,7 @@ metadata:
   name: testkube
   namespace: flux-system
 spec:
+  interval: 5m0s
   releaseName: testkube
   targetNamespace: testkube
   chart:
@@ -14,4 +15,12 @@ spec:
         name: testkube
         namespace: flux-system
       version: "1.6.36"
-  interval: 5m0s
+  # values:
+  #  testkube-dashboard:
+  #    enabled: "true"
+  #    ingress:
+  #      enabled: "true" 
+  #  testkube-api:
+  #    ingress:
+  #      enabled: "true"
+
