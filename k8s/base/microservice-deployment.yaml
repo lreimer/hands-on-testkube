@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: hands-on-testkube
   labels:
+    app: hands-on-testkube
     type: microservice
 spec:
   replicas: 1

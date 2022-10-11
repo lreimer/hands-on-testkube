@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: nginx-service
   namespace: default
+  labels:
+    app: nginx
 spec:
   type: NodePort
   ports:
@@ -16,6 +18,8 @@ kind: Deployment
 metadata:
   name: nginx-deployment
   namespace: default
+  labels:
+    app: nginx
 spec:
   selector:
     matchLabels:

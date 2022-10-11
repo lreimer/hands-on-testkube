@@ -1,0 +1,16 @@
+apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: testtrigger-zapapi
+  namespace: default
+spec:
+  resource: deployment
+  resourceSelector:
+    name: hands-on-testkube
+    namespace: default
+  event: modified
+  action: run
+  execution: test
+  testSelector:
+    name: zap-api-test
+    namespace: testkube

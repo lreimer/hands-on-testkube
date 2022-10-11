@@ -144,9 +144,25 @@ kubectl testkube run test --watch karate-test
 ## TestSuite Example
 
 ```bash
+# manually create and run a test suite from JSON
 kubectl testkube create testsuite --name hands-on-testkube --file src/suite.json
 kubectl get testsuites -n testkube hands-on-testkube  -o yaml
 kubectl testkube run testsuite hands-on-testkube
+
+# alternatively, create test suite via GitOps
+# see k8s/applications/testsuite.yaml
+```
+
+## Test Triggers Example
+
+```bash
+# register the test triggers manually or via GitOps
+kubectl apply -n testkube -f k8s/applications/testtrigger.yaml
+kubectl apply -n testkube -f k8s/applications/zap-demo/testtrigger-zapapi.yaml
+
+# then make changes to the Nginx or Microservice deployment
+kubectl scale deployment nginx-deployment --replicas=3
+kubectl scale deployment hands-on-testkube --replicas=3
 ```
 
 ## Maintainer

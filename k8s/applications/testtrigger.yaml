@@ -1,0 +1,18 @@
+apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: testtrigger-gitops
+  namespace: testkube
+spec:
+  resource: deployment
+  resourceSelector:
+    namespace: default
+    labelSelector:
+      matchLabels:
+        app: nginx
+  event: modified
+  action: run
+  execution: testsuite
+  testSelector:
+    name: hands-on-testkube-gitops
+    namespace: testkube
