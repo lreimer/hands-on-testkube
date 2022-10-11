@@ -52,4 +52,4 @@ jobs:
         with:
           command: run
           resource: testsuite
-          parameters: hands-on-testkube
+          parameters: hands-on-testkube-gitops
