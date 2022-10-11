@@ -1,5 +1,7 @@
 plugins {
-    id 'java-library'
+    id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
 }
 
 repositories {
@@ -19,6 +21,10 @@ configurations {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.11'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.2'
     testImplementation 'io.rest-assured:rest-assured:4.5.1'
     
@@ -28,8 +34,7 @@ dependencies {
 
 group = 'hands.on.testkube'
 version = '1.0.0'
-
-java.sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = '17'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -48,4 +53,8 @@ check.dependsOn integrationTest
 
 tasks.withType(Test) {
     useJUnitPlatform()
+}
+
+tasks.named("bootBuildImage") {
+	imageName = "${project.name}:${project.version}"
 }
