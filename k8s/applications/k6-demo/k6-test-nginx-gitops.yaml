@@ -31,5 +31,11 @@ spec:
           sleep(1);
       }
     type: string
-  executionRequest: {}
+  executionRequest:
+    variables:
+      TARGET_HOSTNAME:
+        name: TARGET_HOSTNAME
+        type: basic
+        value: nginx-service.default.svc.cluster.local
+        valueFrom: {}
   type: k6/script
