@@ -6,8 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>hands.on.testkube</groupId>
-    <artifactId>testkube-maven</artifactId>
-    <version>1.0</version>
+    <artifactId>hands-on-testkube</artifactId>
+    <version>1.0.0</version>
 
     <properties>
         <java.version>11</java.version>

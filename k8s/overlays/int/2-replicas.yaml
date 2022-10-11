@@ -1,0 +1,6 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hands-on-testkube
+spec:
+  replicas: 2

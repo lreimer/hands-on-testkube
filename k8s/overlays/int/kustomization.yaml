@@ -1,0 +1,30 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  env: int
+
+resources:
+  # you can also specify a Git repo URL here
+  - ../../base/
+
+images:
+  - name: hands-on-testkube
+    newName: ghcr.io/lreimer/hands-on-testkube
+    newTag: 1.0.0
+
+configMapGenerator:
+  - name: application-configmap
+    behavior: merge
+    literals:
+      - INFO_APP_ENV=int
+
+patchesStrategicMerge:
+  - 2-replicas.yaml
+
+patchesJson6902:
+  - target:
+      version: v1
+      kind: Service
+      name: hands-on-testkube
+    path: loadbalancer.yaml
