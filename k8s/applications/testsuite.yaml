@@ -1,7 +1,7 @@
 apiVersion: tests.testkube.io/v2
 kind: TestSuite
 metadata:
-  name: hands-on-testkube-flux2
+  name: hands-on-testkube-gitops
   namespace: testkube
   generation: 1
 spec:
@@ -9,16 +9,8 @@ spec:
   executionRequest: {}
   steps:
   - execute:
-      name: postman-test
+      name: k6-test-nginx-gitops
   - delay:
       duration: 1000
   - execute:
-      name: k6-test-script
-  - delay:
-      duration: 1000
-  - execute:
-      name: maven-test
-  - delay:
-      duration: 1000
-  - execute:
-      name: gradle-test
+      name: gradle-integration-test-gitops

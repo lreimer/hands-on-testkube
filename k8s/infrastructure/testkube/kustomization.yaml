@@ -4,5 +4,5 @@ resources:
   - namespace.yaml
   - testkube-source.yaml
   - testkube-release.yaml
-  - zap-executor.yaml
-  - karate-executor.yaml
+  # - zap-executor.yaml
+  # - karate-executor.yaml

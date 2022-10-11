@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - gradle-demo/
   - k6-demo/
-  - testsuite.yaml
+  # - testsuite.yaml
