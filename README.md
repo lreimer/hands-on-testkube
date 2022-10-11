@@ -153,6 +153,13 @@ kubectl testkube run testsuite hands-on-testkube
 # see k8s/applications/testsuite.yaml
 ```
 
+## GitHub Actions Example
+
+```bash
+# see .github/workflows/testkube.yaml
+# see https://github.com/lreimer/hands-on-testkube/actions/workflows/testkube.yaml
+```
+
 ## Test Triggers Example
 
 ```bash
