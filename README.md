@@ -141,6 +141,15 @@ kubectl testkube create test --filename src/karate/chuck-norris.feature --type "
 kubectl testkube run test --watch karate-test
 ```
 
+## TestSource Example
+
+```bash
+kubectl testkube create testsource --name hands-on-testkube --git-uri https://github.com/lreimer/hands-on-testkube.git --git-branch main
+
+kubectl testkube create test --source hands-on-testkube --type "k6/script" --name k6-testsource
+kubectl testkube run test --args src/k6/k6-test-scenarios.js --watch k6-testsource
+```
+
 ## TestSuite Example
 
 ```bash

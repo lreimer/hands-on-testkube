@@ -4,3 +4,4 @@ resources:
   - gradle-demo/
   - k6-demo/
   - testsuite.yaml
+  - testtrigger.yaml
