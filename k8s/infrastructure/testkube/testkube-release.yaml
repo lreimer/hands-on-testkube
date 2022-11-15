@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: testkube
         namespace: flux-system
-      version: "1.6.36"
+      version: "1.6.110"
   # values:
   #  testkube-dashboard:
   #    enabled: "true"
