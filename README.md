@@ -14,6 +14,7 @@ This project contains test sources for various languages, frameworks and tools:
 For a simple local setup use the following instructions:
 ```
 $ kubectl testkube init
+$ kubectl testkube dashboard
 ```
 
 For a GKE based setup using Flux as GitOps tool, use the following instructions:
@@ -24,7 +25,7 @@ $ export GITHUB_TOKEN=<your-token>
 
 # setup a GKE cluster with Flux2
 $ make create-gke-cluster
-$ make bootstrap-gke-flux2
+$ make bootstrap-flux2
 
 # modify Flux kustomization and add
 # - infrastructure-sync.yaml
@@ -174,7 +175,7 @@ kubectl testkube run testsuite hands-on-testkube
 ```bash
 # register the test triggers manually or via GitOps
 kubectl apply -n testkube -f k8s/applications/testtrigger.yaml
-kubectl apply -n testkube -f k8s/applications/zap-demo/testtrigger-zapapi.yaml
+kubectl apply -n testkube -f k8s/applications/zap-demo/zap-api-testtrigger.yaml
 
 # then make changes to the Nginx or Microservice deployment
 kubectl scale deployment nginx-deployment --replicas=3

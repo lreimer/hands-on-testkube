@@ -1,0 +1,32 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  name: zap-api-test
+  namespace: testkube
+spec:
+  type: zap/api
+  content:
+    data: |
+      api:
+        # -t the target API definition
+        target: http://hands-on-testkube.default.svc.cluster.local:8080/openapi/
+        # -f the API format, openapi, soap, or graphql
+        format: openapi
+        # -O the hostname to override in the (remote) OpenAPI spec
+        hostname: http://hands-on-testkube.default.svc.cluster.local:8080/
+        # -S safe mode this will skip the active scan and perform a baseline scan
+        safe: true
+        # -d show debug messages
+        debug: false
+        # -s short output
+        short: false
+        # -l minimum level to show: PASS, IGNORE, INFO, WARN or FAIL
+        level: INFO
+        # delay in seconds to wait for passive scanning
+        delay: 5
+        # max time in minutes to wait for ZAP to start and the passive scan to run
+        time: 60
+        # -I should ZAP fail on warnings
+        fail_on_warn: false
+    type: string
+  executionRequest: {} 
