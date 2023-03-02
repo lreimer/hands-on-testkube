@@ -5,4 +5,4 @@ resources:
 - gotk-sync.yaml
 - infrastructure-sync.yaml
 - microservice-sync.yaml
-# - applications-sync.yaml
+- applications-sync.yaml
