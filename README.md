@@ -123,11 +123,11 @@ kubectl testkube run test --args integration-test --watch maven-project
 kubectl apply -n testkube -f k8s/infrastructure/testkube/zap-executor.yaml
 
 # run a ZAP OpenAPI scan against microservice
-kubectl testkube create test --filename src/zap/zap-api.yaml --type "zap/api" --name zap-api-test
+kubectl testkube create test --file src/zap/zap-api.yaml --type "zap/api" --name zap-api-test
 kubectl testkube run test --watch zap-api-test
 
 # run a ZAP Baseline scan against microservice
-kubectl testkube create test --filename src/zap/zap-baseline.yaml --type "zap/baseline" --name zap-baseline-test
+kubectl testkube create test --file src/zap/zap-baseline.yaml --type "zap/baseline" --name zap-baseline-test
 kubectl testkube run test --watch zap-baseline-test
 ```
 
@@ -138,7 +138,7 @@ kubectl testkube run test --watch zap-baseline-test
 kubectl apply -n testkube -f k8s/infrastructure/testkube/karate-executor.yaml
 
 # create and run a Karate test agains Chuck Norris REST API
-kubectl testkube create test --filename src/karate/chuck-norris.feature --type "karate/feature" --name karate-test
+kubectl testkube create test --file src/karate/chuck-norris.feature --type "karate/feature" --name karate-test
 kubectl testkube run test --watch karate-test
 ```
 
