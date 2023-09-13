@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zap-daemon
+  namespace: zap
+spec:
+  type: NodePort
+  ports:
+    - port: 9080
+      targetPort: 9080
+      protocol: TCP
+  selector:
+    app: zap
+    mode: daemon
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zap-daemon
+  namespace: zap
+  labels:
+    app: zap
+    mode: daemon
+spec:
+  containers:
+    - name: zap-daemon
+      image: owasp/zap2docker-stable:2.10.0
+      args: ['zap.sh', '-daemon', 
+              '-port', '9080', 
+              '-host', '0.0.0.0', 
+              '-config', 'api.addrs.addr.name=.*',
+              '-config', 'api.addrs.addr.regex=true', 
+              '-config', 'api.key=1qay2wsx3edc']
+      ports:
+        - containerPort: 9080      
+      resources:
+        limits:
+          cpu: "2"
+          memory: "1024Mi"
+        requests:
+          cpu: "0.5"
+          memory: "256Mi"

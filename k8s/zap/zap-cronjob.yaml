@@ -1,0 +1,22 @@
+apiVersion: cronjob.batch/v1beta1
+kind: CronJob
+metadata:
+  name: zap-cronjob
+  namespace: zap
+spec:
+  schedule: "*/2 * * * *"   # every 2 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: "zap"
+              image: "owasp/zap2docker-stable:2.10.0"
+              args: [
+                  "zap-api-scan.py", 
+                  "-t", "http://hands-on-testkube.default.svc.cluster.local:8080/openapi/", 
+                  "-f", "openapi",
+                  "-l", "INFO",
+                  "-I"
+              ]
+              restartPolicy: "Never"
