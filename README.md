@@ -11,21 +11,24 @@ This project contains test sources for various languages, frameworks and tools:
 
 ## Bootstrapping
 
-For a simple local setup use the following instructions:
-```
-$ kubectl testkube init
-$ kubectl testkube dashboard
+```bash
+# For a simple local setup use the following instructions
+kubectl testkube init
+
+# to use Testkube Pro setup and connect an agent
+# look at the UI for command with correct tokens
+testkube pro init --agent-token=tkcagnt_etc.pp --org-id=tkcorg_etc.pp --env-id=tkcenv_etc.pp
 ```
 
 For a GKE based setup using Flux as GitOps tool, use the following instructions:
 ```bash
 # define required ENV variables for the next steps to work
-$ export GITHUB_USER=lreimer
-$ export GITHUB_TOKEN=<your-token>
+export GITHUB_USER=lreimer
+export GITHUB_TOKEN=<your-token>
 
 # setup a GKE cluster with Flux2
-$ make create-gke-cluster
-$ make bootstrap-flux2
+make create-gke-cluster
+make bootstrap-flux2
 
 # modify Flux kustomization and add
 # - infrastructure-sync.yaml
@@ -36,16 +39,16 @@ $ make bootstrap-flux2
 # - image-update-automation.yaml
 
 # if the TestKube Helm release fails to reconciliate
-$ flux suspend hr testkube
-$ flux resume hr testkube
+flux suspend hr testkube
+flux resume hr testkube
 
 # you also need to create the webhook for the Git Repository
 # Payload URL: http://<LoadBalancerAddress>/<ReceiverURL>
 # Secret: the webhook-token value
-# $ kubectl -n flux-system get svc/receiver
-# $ kubectl -n flux-system get receiver/webapp
+# kubectl -n flux-system get svc/receiver
+# kubectl -n flux-system get receiver/webapp
 
-$ make delete-gke-cluster
+make delete-gke-cluster
 ```
 
 ## TestKube UI and CLI
@@ -161,6 +164,7 @@ kubectl testkube run testsuite hands-on-testkube
 
 # alternatively, create test suite via GitOps
 # see k8s/applications/testsuite.yaml
+# this uses the new test workflow CRD
 ```
 
 ## GitHub Actions Example
