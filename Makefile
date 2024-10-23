@@ -3,7 +3,7 @@ prepare-gke-cluster:
 	@gcloud config set container/use_client_certificate False
 
 create-gke-cluster:
-	@gcloud container clusters create testkube-cluster --num-nodes=3 --enable-autoscaling --min-nodes=3 --max-nodes=5 --cluster-version=1.30
+	@gcloud container clusters create testkube-cluster --num-nodes=3 --enable-autoscaling --min-nodes=3 --max-nodes=5 --machine-type=n2-standard-8 --cluster-version=1.30
 	@kubectl create clusterrolebinding cluster-admin-binding --clusterrole=cluster-admin --user=$$(gcloud config get-value core/account)
 	@kubectl cluster-info
 
