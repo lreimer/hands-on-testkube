@@ -1,16 +1,16 @@
-apiVersion: tests.testkube.io/v2
-kind: TestSuite
+apiVersion: testworkflows.testkube.io/v1
+kind: TestWorkflow
 metadata:
-  name: hands-on-testkube-gitops
-  namespace: testkube
-  generation: 1
+  name: demo-testsuite
+  labels:
+    docs: example
 spec:
-  description: Example Testkube test suite via Flux2
-  executionRequest: {}
   steps:
-  - execute:
-      name: k6-test-nginx-gitops
-  - delay:
-      duration: 1000
-  - execute:
-      name: gradle-integration-test-gitops
+    - execute:
+        workflows:
+          - name: gradle-test
+    - delay: 1000ms
+    - execute:
+        workflows:
+          - name: k6-sample
+          - name: postman-sample
