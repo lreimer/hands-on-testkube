@@ -1,0 +1,23 @@
+name: Run Testkube Pro Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    name: Run Testkube Pro
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: kubeshop/setup-testkube@v1
+      with:
+        organization: ${{ secrets.TkOrganization }}
+        environment: ${{ secrets.TkEnvironment }}
+        token: ${{ secrets.TkToken }}
+    
+    - run: |
+        testkube run testworkflow gradle-test -f 
