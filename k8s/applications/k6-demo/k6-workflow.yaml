@@ -1,0 +1,44 @@
+kind: TestWorkflow
+apiVersion: testworkflows.testkube.io/v1
+metadata:
+  name: k6-test-nginx
+  namespace: testkube
+spec:
+  events:
+  - cronjob:
+      cron: 0 * * * *
+  content:
+    files:
+      - path: k6.js
+        content: >-
+          import {check, sleep, group} from "k6";
+          import http from "k6/http";
+
+          export let options = {
+              vus: 10,
+              duration: '30s',
+              batchPerHost: 4,
+              insecureSkipTLSVerify: true,
+              thresholds: {
+                  'http_req_duration{kind:html}': ['avg<=250', 'p(95)<500'],
+              }
+          };
+
+          export default function () {
+              group("static", function () {
+                  check(http.get(`http://${__ENV.TARGET_HOSTNAME}:80`, {
+                      tags: {'kind': 'html'},
+                  }), {
+                      "status is 200": (res) => res.status === 200,
+                  });
+              });
+              sleep(1);
+          }
+  use:
+    - name: official/k6/v1
+      config: {}
+  container:
+    workingDir: /data
+    env:
+      - name: TARGET_HOSTNAME
+        value: nginx-service.default.svc.cluster.local
